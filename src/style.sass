@@ -74,6 +74,11 @@ header
         border: 2px solid #4BC9F3
         font-family: "Oswald", sans-serif
         margin-right: 50px
+        text-align: center
+        transition: all 0.8s ease
+
+        &:hover
+            border: 2px solid #2f74dc
 
         &:focus
             border: 2px solid #2f74dc
@@ -127,10 +132,37 @@ header
     width: 45%
     border-left: 2px solid #4bc9f3
     border-right: 2px solid #4bc9f3
-    border-bottom: 2px solid #4bc9f3
     margin: 20px 15px 0px 15px
     font-size: 24px
     line-height: 36px
+    text-align: center
+    display: none
+    transition: all 0.8s ease 0
+    height: 250px
+
+    &:hover > .icon
+        font-size: 48px
+
+    &:hover > .humidity
+        display: block
+
+    &:hover > .pressure
+        display: block
+
+.darkBorder
+    border-left: 2px solid #1e63cb
+    border-right: 2px solid #1e63cb
+
+.icon
+    padding-top: 10px
+    color: #4bc9f3
+    font-size: 120px
+    transition: all 0.8s ease
+
+.humidity
+    display: none
+
+.pressure
     display: none
 
 .stripe
@@ -141,7 +173,15 @@ header
 .darkStripe
     background-color: #1e63cb
 
-.darkBorder
-    border-left: 2px solid #1e63cb
-    border-right: 2px solid #1e63cb
-    border-bottom: 2px solid #1e63cb
+.darkIcon
+    color: #1e63cb
+
+footer
+    width: 90vw
+    border-left: 2px solid #4bc9f3
+    border-right: 2px solid #4bc9f3
+    padding-top: 20px
+    font-size: 24px
+    line-height: 36px
+    margin: 40px auto 5px auto
+    text-align: center

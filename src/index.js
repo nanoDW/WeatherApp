@@ -25,7 +25,6 @@ function findLocation(cb) {
   if (navigator.geolocation) {
     //check if geolocation is available
     navigator.geolocation.getCurrentPosition(function (position) {
-      //console.log(position.coords.latitude, position.coords.longitude);
       coords = {
         lat: position.coords.latitude,
         lon: position.coords.longitude
@@ -91,41 +90,6 @@ function getDataByCoords(currentPosition) {
     });
 }
 
-function getWeatherByGeoloc() {
-  findLocation(location => {
-    console.log(location);
-    getDataByCoords(location);
-  });
-}
-
-//searching the city
-let searchButton = document.getElementById("searchButton");
-let today = new Date;
-document.getElementById("date").innerHTML = getDayOfWeek() + ', ' + today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
-window.addEventListener("load", getWeatherByGeoloc);
-window.addEventListener("load", timer);
-searchButton.addEventListener("click", getDataByCity);
-
-function getDayOfWeek() {
-  let day = today.getDay();
-  switch (day) {
-    case 0:
-      return "Monday";
-    case 1:
-      return "Tuesday";
-    case 2:
-      return "Wednesday";
-    case 3:
-      return "Thursday";
-    case 4:
-      return "Friday";
-    case 5:
-      return "Saturday";
-    case 6:
-      return "Sunday";
-  }
-}
-
 function displayWeather(resp) {
   console.log(document.getElementById("cityName").innerText);
   document.getElementById("cityName").innerText =
@@ -156,59 +120,220 @@ function displayWeather(resp) {
       document
         .getElementById(`item${i * 2 + 1}`)
         .children[0].classList.add("darkStripe");
+      document
+        .getElementById(`item${i * 2 + 1}`)
+        .children[1].classList.add("darkIcon");
       document.getElementById(`item${i * 2 + 1}`).classList.add("darkBorder");
-      document.getElementById(`item${i * 2 + 1}`).children[1].innerHTML =
-        arrOfmidnight[i].dt_txt;
+      document.getElementById(`item${i * 2 + 1}`).children[1].innerHTML = setIcon(arrOfmidnight[i].weather[0].id);
       document.getElementById(`item${i * 2 + 1}`).children[2].innerHTML =
-        "Temperature: " + arrOfmidnight[i].main.temp.toFixed() + "&deg;C";
+        arrOfmidnight[i].dt_txt;
       document.getElementById(`item${i * 2 + 1}`).children[3].innerHTML =
-        "Pressure: " + arrOfmidnight[i].main.pressure.toFixed() + " hPa";
+        "Temperature: " + arrOfmidnight[i].main.temp.toFixed() + "&deg;C";
       document.getElementById(`item${i * 2 + 1}`).children[4].innerHTML =
-        "Humidity: " + arrOfmidnight[i].main.humidity + "%";
+        "Pressure: " + arrOfmidnight[i].main.pressure.toFixed() + " hPa";
       document.getElementById(`item${i * 2 + 1}`).children[5].innerHTML =
+        "Humidity: " + arrOfmidnight[i].main.humidity + "%";
+      document.getElementById(`item${i * 2 + 1}`).children[6].innerHTML =
         "Weather: " + arrOfmidnight[i].weather[0].description;
     }
     for (let j = 0; j < arrOftwelve.length; j++) {
       document.getElementById(`item${(j + 1) * 2}`).style.display = "block";
-      document.getElementById(`item${(j + 1) * 2}`).children[1].innerHTML =
-        arrOftwelve[j].dt_txt;
+      document.getElementById(`item${(j + 1) * 2}`).children[1].innerHTML = setIcon(arrOftwelve[j].weather[0].id);
       document.getElementById(`item${(j + 1) * 2}`).children[2].innerHTML =
-        "Temperature: " + arrOftwelve[j].main.temp.toFixed() + "&deg;C";
+        arrOftwelve[j].dt_txt;
       document.getElementById(`item${(j + 1) * 2}`).children[3].innerHTML =
-        "Pressure:  " + arrOftwelve[j].main.pressure.toFixed() + " hPa";
+        "Temperature: " + arrOftwelve[j].main.temp.toFixed() + "&deg;C";
       document.getElementById(`item${(j + 1) * 2}`).children[4].innerHTML =
-        "Humidity: " + arrOftwelve[j].main.humidity + "%";
+        "Pressure:  " + arrOftwelve[j].main.pressure.toFixed() + " hPa";
+
       document.getElementById(`item${(j + 1) * 2}`).children[5].innerHTML =
+        "Humidity: " + arrOftwelve[j].main.humidity + "%";
+      document.getElementById(`item${(j + 1) * 2}`).children[6].innerHTML =
         "Weather: " + arrOftwelve[j].weather[0].description;
     }
   } else {
     for (let i = 0; i < arrOfmidnight.length; i++) {
+      document.getElementById(`item${(i + 1) * 2}`).style.display = "block";
       document
         .getElementById(`item${(i + 1) * 2}`)
         .children[0].classList.add("darkStripe");
+      document.getElementById(`item${(i + 1) * 2}`)
+        .children[1].classList.add("darkIcon");
       document.getElementById(`item${(i + 1) * 2}`).classList.add("darkBorder");
-      document.getElementById(`item${(i + 1) * 2}`).children[1].innerHTML =
-        arrOfmidnight[i].dt_txt;
+      document.getElementById(`item${(i + 1) * 2}`).children[1].innerHTML = setIcon(arrOfmidnight[i].weather[0].id);
       document.getElementById(`item${(i + 1) * 2}`).children[2].innerHTML =
-        "Temperature: " + arrOfmidnight[i].main.temp.toFixed() + "&deg;C";
+        arrOfmidnight[i].dt_txt;
       document.getElementById(`item${(i + 1) * 2}`).children[3].innerHTML =
-        "Pressure: " + arrOfmidnight[i].main.pressure.toFixed() + " hPa";
+        "Temperature: " + arrOfmidnight[i].main.temp.toFixed() + "&deg;C";
       document.getElementById(`item${(i + 1) * 2}`).children[4].innerHTML =
-        "Humidity: " + arrOfmidnight[i].main.humidity + "%";
+        "Pressure: " + arrOfmidnight[i].main.pressure.toFixed() + " hPa";
       document.getElementById(`item${(i + 1) * 2}`).children[5].innerHTML =
+        "Humidity: " + arrOfmidnight[i].main.humidity + "%";
+      document.getElementById(`item${(i + 1) * 2}`).children[6].innerHTML =
         "Weather: " + arrOfmidnight[i].weather[0].description;
     }
     for (let j = 0; j < arrOftwelve.length; j++) {
-      document.getElementById(`item${j * 2 + 1}`).children[1].innerHTML =
-        arrOftwelve[j].dt_txt;
+      document.getElementById(`item${j * 2 + 1}`).style.display = "block";
+      document.getElementById(`item${j * 2 + 1}`).children[1].innerHTML = setIcon(arrOftwelve[j].weather[0].id);
       document.getElementById(`item${j * 2 + 1}`).children[2].innerHTML =
-        "Temperature: " + arrOftwelve[j].main.temp.toFixed() + "&deg;C";
+        arrOftwelve[j].dt_txt;
       document.getElementById(`item${j * 2 + 1}`).children[3].innerHTML =
-        "Pressure:  " + arrOftwelve[j].main.pressure.toFixed() + " hPa";
+        "Temperature: " + arrOftwelve[j].main.temp.toFixed() + "&deg;C";
       document.getElementById(`item${j * 2 + 1}`).children[4].innerHTML =
-        "Humidity: " + arrOftwelve[j].main.temp + "%";
+        "Pressure:  " + arrOftwelve[j].main.pressure.toFixed() + " hPa";
       document.getElementById(`item${j * 2 + 1}`).children[5].innerHTML =
+        "Humidity: " + arrOftwelve[j].main.temp + "%";
+      document.getElementById(`item${j * 2 + 1}`).children[6].innerHTML =
         "Weather: " + arrOftwelve[j].weather[0].description;
     }
   }
 }
+
+function setIcon(code) {
+
+  switch (code) {
+    case 800:
+      return '<i class="far fa-sun"></i>';
+    case 801:
+      return '<i class="fas fa-cloud-sun"></i>';
+    case 802:
+      return '<i class="fas fa-cloud-sun"></i>';
+    case 803:
+      return '<i class="fas fa-cloud-sun"></i>';
+    case 804:
+      return '<i class="fas fa-cloud-sun"></i>';
+    case 701:
+      return '<i class="fas fa-wind"></i>';
+    case 711:
+      return '<i class="fas fa-wind"></i>';
+    case 721:
+      return '<i class="fas fa-wind"></i>';
+    case 731:
+      return '<i class="fas fa-wind"></i>';
+    case 741:
+      return '<i class="fas fa-wind"></i>';
+    case 751:
+      return '<i class="fas fa-wind"></i>';
+    case 761:
+      return '<i class="fas fa-wind"></i>';
+    case 762:
+      return '<i class="fas fa-wind"></i>';
+    case 771:
+      return '<i class="fas fa-wind"></i>';
+    case 781:
+      return '<i class="fas fa-wind"></i>';
+    case 600:
+      return '<i class="far fa-snowflake"></i>';
+    case 601:
+      return '<i class="far fa-snowflake"></i>';
+    case 602:
+      return '<i class="far fa-snowflake"></i>';
+    case 611:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 612:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 615:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 616:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 620:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 621:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 622:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 500:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 501:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 502:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 503:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 504:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 511:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 520:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 521:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 522:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 531:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 300:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 301:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 302:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 310:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 311:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 312:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 313:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 314:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 321:
+      return '<i class="fas fa-cloud-showers-heavy"></i>';
+    case 200:
+      return '<i class="fas fa-bolt"></i>';
+    case 201:
+      return '<i class="fas fa-bolt"></i>';
+    case 202:
+      return '<i class="fas fa-bolt"></i>';
+    case 210:
+      return '<i class="fas fa-bolt"></i>';
+    case 211:
+      return '<i class="fas fa-bolt"></i>';
+    case 212:
+      return '<i class="fas fa-bolt"></i>';
+    case 221:
+      return '<i class="fas fa-bolt"></i>';
+    case 230:
+      return '<i class="fas fa-bolt"></i>';
+    case 231:
+      return '<i class="fas fa-bolt"></i>';
+    case 232:
+      return '<i class="fas fa-bolt"></i>';
+  }
+}
+
+function getDayOfWeek() {
+  let day = today.getDay();
+  switch (day) {
+    case 0:
+      return "Monday";
+    case 1:
+      return "Tuesday";
+    case 2:
+      return "Wednesday";
+    case 3:
+      return "Thursday";
+    case 4:
+      return "Friday";
+    case 5:
+      return "Saturday";
+    case 6:
+      return "Sunday";
+  }
+}
+
+function getWeatherByGeoloc() {
+  findLocation(location => {
+    console.log(location);
+    getDataByCoords(location);
+  });
+}
+
+//searching the city
+let searchButton = document.getElementById("searchButton");
+let today = new Date;
+document.getElementById("date").innerHTML = getDayOfWeek() + ', ' + today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+window.addEventListener("load", getWeatherByGeoloc);
+window.addEventListener("load", timer);
+searchButton.addEventListener("click", getDataByCity);
