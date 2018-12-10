@@ -1,0 +1,41 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "This app will show actual weather in chosen city using OpenWeatherMap API.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanoDW/WeatherApp.git"
+  },
+  "keywords": [
+    "weather",
+    "API",
+    "world"
+  ],
+  "author": "nanoDW",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nanoDW/WeatherApp/issues"
+  },
+  "homepage": "https://github.com/nanoDW/WeatherApp#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.1",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.6.0",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.27.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "moment": "^2.22.2"
+  }
+}
