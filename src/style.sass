@@ -65,6 +65,7 @@ header
     font-family: "Oswald", sans-serif
     display: flex
     justify-content: center
+    flex-wrap: wrap
 
     input
         height: 40px
@@ -221,3 +222,63 @@ footer
     line-height: 36px
     margin: 40px auto 0 auto
     text-align: center
+
+@media only screen and (max-width: 1000px)
+    header
+        .timer
+            width: 70vw
+            margin: 0 auto 20px auto
+
+        .digit
+            width: 15vw
+            max-width: 45px
+            min-width: 30px
+
+        .city
+            width: 90vw
+            margin: 0 auto
+
+        .map
+            .cityDesc
+                padding: 0
+
+@media only screen and (max-width: 800px)
+    header
+        .timer
+            width: 100%
+            margin: 0 auto 20px auto
+
+    .map
+        height: auto
+
+        .mapImg
+            background-image: url("./worldMap.png")
+            background-size: contain
+            background-repeat: no-repeat
+            width: 60vw
+            height: 40vw
+
+        .cityDesc
+            width: 90vw
+            padding: 0
+            margin: 0 auto
+            text-align: center
+
+    .searchForm
+        input
+            width: 90vw
+            padding: 5px
+            margin: 10px auto 10px auto
+
+        button
+            width: 150px
+            margin: 10px auto 10px auto
+
+    .cityDesc
+        width: 90vw
+
+        h1
+            padding-bottom: 20px
+
+    .itemDesc
+        width: 90vw
