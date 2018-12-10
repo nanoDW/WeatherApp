@@ -90,8 +90,17 @@ function getDataByCoords(currentPosition) {
     });
 }
 
+function getWeatherByGeoloc() {
+  findLocation(location => {
+    console.log(location);
+    getDataByCoords(location);
+  });
+}
+
 function displayWeather(resp) {
   console.log(document.getElementById("cityName").innerText);
+  document.getElementsByClassName('preloader')[0].style.display = "none";
+  document.getElementsByClassName('cityDesc')[0].style.display = "block";
   document.getElementById("cityName").innerText =
     resp.city.name + ", " + resp.city.country;
   document.getElementById("tempValue").innerText = resp.list[0].main.temp;
@@ -190,116 +199,20 @@ function displayWeather(resp) {
 }
 
 function setIcon(code) {
-
-  switch (code) {
-    case 800:
-      return '<i class="far fa-sun"></i>';
-    case 801:
-      return '<i class="fas fa-cloud-sun"></i>';
-    case 802:
-      return '<i class="fas fa-cloud-sun"></i>';
-    case 803:
-      return '<i class="fas fa-cloud-sun"></i>';
-    case 804:
-      return '<i class="fas fa-cloud-sun"></i>';
-    case 701:
-      return '<i class="fas fa-wind"></i>';
-    case 711:
-      return '<i class="fas fa-wind"></i>';
-    case 721:
-      return '<i class="fas fa-wind"></i>';
-    case 731:
-      return '<i class="fas fa-wind"></i>';
-    case 741:
-      return '<i class="fas fa-wind"></i>';
-    case 751:
-      return '<i class="fas fa-wind"></i>';
-    case 761:
-      return '<i class="fas fa-wind"></i>';
-    case 762:
-      return '<i class="fas fa-wind"></i>';
-    case 771:
-      return '<i class="fas fa-wind"></i>';
-    case 781:
-      return '<i class="fas fa-wind"></i>';
-    case 600:
-      return '<i class="far fa-snowflake"></i>';
-    case 601:
-      return '<i class="far fa-snowflake"></i>';
-    case 602:
-      return '<i class="far fa-snowflake"></i>';
-    case 611:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 612:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 615:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 616:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 620:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 621:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 622:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 500:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 501:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 502:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 503:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 504:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 511:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 520:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 521:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 522:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 531:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 300:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 301:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 302:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 310:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 311:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 312:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 313:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 314:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 321:
-      return '<i class="fas fa-cloud-showers-heavy"></i>';
-    case 200:
-      return '<i class="fas fa-bolt"></i>';
-    case 201:
-      return '<i class="fas fa-bolt"></i>';
-    case 202:
-      return '<i class="fas fa-bolt"></i>';
-    case 210:
-      return '<i class="fas fa-bolt"></i>';
-    case 211:
-      return '<i class="fas fa-bolt"></i>';
-    case 212:
-      return '<i class="fas fa-bolt"></i>';
-    case 221:
-      return '<i class="fas fa-bolt"></i>';
-    case 230:
-      return '<i class="fas fa-bolt"></i>';
-    case 231:
-      return '<i class="fas fa-bolt"></i>';
-    case 232:
-      return '<i class="fas fa-bolt"></i>';
+  if (code < 300) {
+    return '<i class="fas fa-bolt"></i>';
+  } else if (code < 600) {
+    return '<i class="fas fa-cloud-showers-heavy"></i>';
+  } else if (code < 611) {
+    return '<i class="far fa-snowflake"></i>';
+  } else if (code < 700) {
+    return '<i class="fas fa-cloud-showers-heavy"></i>';
+  } else if (code < 800) {
+    return '<i class="fas fa-wind"></i>';
+  } else if (code == 800) {
+    return '<i class="far fa-sun"></i>';
+  } else {
+    return '<i class="fas fa-cloud-sun"></i>';
   }
 }
 
@@ -323,14 +236,6 @@ function getDayOfWeek() {
   }
 }
 
-function getWeatherByGeoloc() {
-  findLocation(location => {
-    console.log(location);
-    getDataByCoords(location);
-  });
-}
-
-//searching the city
 let searchButton = document.getElementById("searchButton");
 let today = new Date;
 document.getElementById("date").innerHTML = getDayOfWeek() + ', ' + today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();

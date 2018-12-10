@@ -111,7 +111,43 @@ header
         width: 50%
         height: 100%
 
+    .preloader,
+    .preloader:before,
+    .preloader:after
+        background-color: #1e63cb
+        animation: animation 1.5s infinite ease-in-out
+        width: 16px
+
+    .preloader:before,
+    .preloader:after
+        position: absolute
+        content: ""
+
+    .preloader:before
+        left: -20px
+        animation-delay: -0.32s
+
+    .preloader
+        margin: 65px auto 40px
+        transform: translateZ(0)
+        animation-delay: -0.16s
+
+    .preloader:after
+        left: 20px
+
+    @keyframes animation
+        0%,
+        80%,
+        100%
+            box-shadow: 0 0 #1e63cb
+            height: 40px
+
+        40%
+            box-shadow: 0 -30px #1e63cb
+            height: 80px
+
     .cityDesc
+        display: none
         width: 50%
         font-size: 24px
         line-height: 36px
@@ -183,5 +219,5 @@ footer
     padding-top: 20px
     font-size: 24px
     line-height: 36px
-    margin: 40px auto 5px auto
+    margin: 40px auto 0 auto
     text-align: center
